@@ -32,8 +32,8 @@ class RetrofitViewModel : ViewModel() {
 
     init {
         //getRestApiResponse()
-        getAllPhotos()
-        //getPhotosByAlbum()
+        //getAllPhotos()
+        getPhotosByAlbum()
         //postPhoto()
         //replacePhoto()
         //updatePhoto()
@@ -78,6 +78,19 @@ class RetrofitViewModel : ViewModel() {
                 _response.value = null
             }
         }
+
+    fun getPhotosByAlbum() : Job = viewModelScope.launch {
+        try {
+            _status.value = RestApiStatus.LOADING
+            _response.value = RetrofitInstance.retrofit.getPhotosByAlbumId(5).body()
+            Log.i("MYTAG", "Success")
+            _status.value = RestApiStatus.DONE
+        } catch (e: java.lang.Exception) {
+            _status.value = RestApiStatus.ERROR
+            _response.value = null
+        }
+
+    }
 
     override fun onCleared() {
         super.onCleared()
