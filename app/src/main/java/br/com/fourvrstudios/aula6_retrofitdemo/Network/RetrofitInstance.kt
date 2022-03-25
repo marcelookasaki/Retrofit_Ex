@@ -10,6 +10,7 @@ private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
+// MÉTODO 1
 class RetrofitInstance {
     companion object { // Compantion object para que a instancia do retrofit esteja acessível na aplicação
         val retrofit = Retrofit.Builder()
