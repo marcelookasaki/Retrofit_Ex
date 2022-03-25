@@ -10,4 +10,7 @@ interface ApiService {
 https://jsonplaceholder.typicode.com/photos */
     @GET("photos") //anotação relativa ao método GET do Retrofit
     fun getAllCall(): Call<List<Photo>>
+
+    @GET("photos")
+    suspend fun getAll() : Response<List<Photo>>
 }

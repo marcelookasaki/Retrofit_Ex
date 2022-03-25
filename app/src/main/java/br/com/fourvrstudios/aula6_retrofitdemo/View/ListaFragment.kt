@@ -24,14 +24,14 @@ class ListaFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // TODO: CÓDIGO DO ALUNO
-/*        viewModel.response.observe(viewLifecycleOwner, Observer {
+        viewModel.response.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 it.forEach {
-                    var item = "id ${it._id} - Title: ${it.title} - url: ${it.url} \n\n"
+                    var item = "id ${it.id} - Title: ${it.title} - url: ${it.url} \n\n"
                     binding.txtRelatorio.append(item)
                 }
             }
-        })*/
+        })
 
         return binding.root
     }
