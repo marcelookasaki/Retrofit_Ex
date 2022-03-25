@@ -23,13 +23,21 @@ class ListaFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_lista, container, false)
         binding.lifecycleOwner = this
 
-        // TODO: CÓDIGO DO ALUNO
+        /* Exibe a lista de fotos de response */
         viewModel.response.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 it.forEach {
                     var item = "id ${it.id} - Title: ${it.title} - url: ${it.url} \n\n"
                     binding.txtRelatorio.append(item)
                 }
+            }
+        })
+
+        /* Exibe a foto de reqResponse */
+        viewModel.reqResponse.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                var item = "id ${it.id} - Title: ${it.title} - url: ${it.url} \n\n"
+                binding.txtRelatorio.append(item)
             }
         })
 

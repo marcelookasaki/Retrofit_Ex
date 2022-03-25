@@ -30,10 +30,15 @@ class RetrofitViewModel : ViewModel() {
     val response: LiveData<List<Photo>?>
         get() = _response
 
+    private val _reqResponse = MutableLiveData<Photo?>()
+    val reqResponse: LiveData<Photo?>
+        get() = _reqResponse
+
     init {
         //getRestApiResponse()
         //getAllPhotos()
-        getPhotosByAlbum()
+        getById()
+        //getPhotosByAlbum()
         //postPhoto()
         //replacePhoto()
         //updatePhoto()
@@ -89,7 +94,18 @@ class RetrofitViewModel : ViewModel() {
             _status.value = RestApiStatus.ERROR
             _response.value = null
         }
+    }
 
+    fun getById() : Job = viewModelScope.launch {
+        try {
+            _status.value = RestApiStatus.LOADING
+            _reqResponse.value = RetrofitInstance.retrofit.getByIdPath(5).body()
+            Log.i("MYTAG", "Success")
+            _status.value = RestApiStatus.DONE
+        } catch (e: java.lang.Exception) {
+            _status.value = RestApiStatus.ERROR
+            _reqResponse.value = null
+        }
     }
 
     override fun onCleared() {
