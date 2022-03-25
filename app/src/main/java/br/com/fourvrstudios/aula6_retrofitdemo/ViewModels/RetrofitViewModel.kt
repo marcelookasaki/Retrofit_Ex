@@ -42,8 +42,8 @@ class RetrofitViewModel : ViewModel() {
         //postPhoto()
         //postField()
         //replacePhoto()
-        updatePhoto()
-        //deletePhoto()
+        //updatePhoto()
+        deletePhoto()
         // getRestApiResponse()
         //postField()
     }
@@ -100,7 +100,7 @@ class RetrofitViewModel : ViewModel() {
     fun getById() : Job = viewModelScope.launch {
         try {
             _status.value = RestApiStatus.LOADING
-            _reqResponse.value = RetrofitInstance.retrofit.getByIdPath(5).body()
+            _reqResponse.value = RetrofitInstance.retrofit.getByIdPath(301).body()
             Log.i("MYTAG", "Success")
             _status.value = RestApiStatus.DONE
         } catch (e: java.lang.Exception) {
@@ -166,6 +166,17 @@ class RetrofitViewModel : ViewModel() {
                 "MEU PATCH",
                 "https://patch.com/150.png")
             _reqResponse.value = RetrofitInstance.retrofit.patchPhoto(5, foto).body()
+            _status.value = RestApiStatus.DONE
+        } catch (e: Exception) {
+            _status.value = RestApiStatus.ERROR
+            _reqResponse.value = null
+        }
+    }
+
+    fun deletePhoto(): Job = viewModelScope.launch {
+        try {
+            _status.value = RestApiStatus.LOADING
+            var x = RetrofitInstance.retrofit.deletePhoto(301)
             _status.value = RestApiStatus.DONE
         } catch (e: Exception) {
             _status.value = RestApiStatus.ERROR

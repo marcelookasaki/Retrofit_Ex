@@ -43,4 +43,7 @@ interface ApiService {
     // Atualiza um objeto existente. Os campos enviados como "null" não irão sobrescrever os existentes
     @PATCH("photos/{id}")
     suspend fun patchPhoto(@Path("id") id : Int, @Body foto: Photo) : Response<Photo>
+
+    @DELETE("photos/{id}")
+    suspend fun deletePhoto(@Path("id") id : Int)
 }
