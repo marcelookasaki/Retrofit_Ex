@@ -37,9 +37,10 @@ class RetrofitViewModel : ViewModel() {
     init {
         //getRestApiResponse()
         //getAllPhotos()
-        getById()
         //getPhotosByAlbum()
+        //getById()
         //postPhoto()
+        postField()
         //replacePhoto()
         //updatePhoto()
         //deletePhoto()
@@ -103,6 +104,40 @@ class RetrofitViewModel : ViewModel() {
             Log.i("MYTAG", "Success")
             _status.value = RestApiStatus.DONE
         } catch (e: java.lang.Exception) {
+            _status.value = RestApiStatus.ERROR
+            _reqResponse.value = null
+        }
+    }
+
+    fun postPhoto() : Job = viewModelScope.launch {
+        try {
+            _status.value = RestApiStatus.LOADING
+            /* Cria foto para postagem */
+            var foto =
+                Photo(2,
+                        0,
+                        "https://post.com/150.png",
+                        "MEU POST",
+                        "https://post.com/150.png")
+            _reqResponse.value = RetrofitInstance.retrofit.salvarFoto(foto).body()
+            _status.value = RestApiStatus.DONE
+        } catch (e: Exception) {
+            _status.value = RestApiStatus.ERROR
+            _reqResponse.value = null
+        }
+    }
+
+    fun postField() : Job = viewModelScope.launch {
+        try {
+            _status.value = RestApiStatus.LOADING
+            _reqResponse.value = RetrofitInstance.retrofit.postPhotoField(
+                10,
+                0,
+                "https://postField.com/155.png",
+                "MEU POST FIELD",
+                "https://post155.com/155.png").body()
+            _status.value = RestApiStatus.DONE
+        } catch (e: Exception) {
             _status.value = RestApiStatus.ERROR
             _reqResponse.value = null
         }

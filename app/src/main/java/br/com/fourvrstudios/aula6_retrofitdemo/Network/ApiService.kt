@@ -2,9 +2,7 @@ package br.com.fourvrstudios.aula6_retrofitdemo.Network
 
 import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -22,4 +20,19 @@ interface ApiService {
     /* Método que retorna apenas um elemento */
     @GET("photos/{id}")
     suspend fun getByIdPath(@Path("id") meuId: Int) : Response<Photo>
+
+    // Salvar Foto – Necessário passar um objeto do tipo Photo como argumento
+    @POST("photos")
+    suspend fun salvarFoto(@Body minhaFoto: Photo): Response<Photo>
+
+    // Salvar Foto – Necessário passar somente os parâmetros
+    @FormUrlEncoded
+    @POST("photos")
+    suspend fun postPhotoField(
+        @Field("albumId") myalbumId: Int,
+        @Field("id") myId: Int,
+        @Field("title") myTitle : String,
+        @Field("url") myUrl : String,
+        @Field("thumbnailUrl") mythumbnailUrl : String
+    ) : Response<Photo>
 }
