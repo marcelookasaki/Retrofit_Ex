@@ -40,9 +40,9 @@ class RetrofitViewModel : ViewModel() {
         //getPhotosByAlbum()
         //getById()
         //postPhoto()
-        postField()
+        //postField()
         //replacePhoto()
-        //updatePhoto()
+        updatePhoto()
         //deletePhoto()
         // getRestApiResponse()
         //postField()
@@ -136,6 +136,36 @@ class RetrofitViewModel : ViewModel() {
                 "https://postField.com/155.png",
                 "MEU POST FIELD",
                 "https://post155.com/155.png").body()
+            _status.value = RestApiStatus.DONE
+        } catch (e: Exception) {
+            _status.value = RestApiStatus.ERROR
+            _reqResponse.value = null
+        }
+    }
+
+    fun replacePhoto(): Job = viewModelScope.launch {
+        try {
+            _status.value = RestApiStatus.LOADING
+            var foto = Photo(2, 1,
+                null,
+                "MEU PUT",
+                "https://put.com/150.png")
+            _reqResponse.value = RetrofitInstance.retrofit.overwritePhoto(1, foto).body()
+            _status.value = RestApiStatus.DONE
+        } catch (e: Exception) {
+            _status.value = RestApiStatus.ERROR
+            _reqResponse.value = null
+        }
+    }
+
+    fun updatePhoto(): Job = viewModelScope.launch {
+        try {
+            _status.value = RestApiStatus.LOADING
+            var foto = Photo(2, 2,
+                null,
+                "MEU PATCH",
+                "https://patch.com/150.png")
+            _reqResponse.value = RetrofitInstance.retrofit.patchPhoto(5, foto).body()
             _status.value = RestApiStatus.DONE
         } catch (e: Exception) {
             _status.value = RestApiStatus.ERROR

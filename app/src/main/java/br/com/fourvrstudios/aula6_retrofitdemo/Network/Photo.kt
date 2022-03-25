@@ -12,5 +12,5 @@ data class Photo(
     @Json(name = "title")
     var title: String,
     @Json(name = "url")
-    val url: String
+    val url: String?
 )

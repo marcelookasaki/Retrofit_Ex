@@ -35,4 +35,12 @@ interface ApiService {
         @Field("url") myUrl : String,
         @Field("thumbnailUrl") mythumbnailUrl : String
     ) : Response<Photo>
+
+    // Cria um novo objeto que substituirá outro existente (que tem o id indicado) SOBRESCREVE
+    @PUT("photos/{id}")
+    suspend fun overwritePhoto(@Path("id") id : Int, @Body foto: Photo) : Response<Photo>
+
+    // Atualiza um objeto existente. Os campos enviados como "null" não irão sobrescrever os existentes
+    @PATCH("photos/{id}")
+    suspend fun patchPhoto(@Path("id") id : Int, @Body foto: Photo) : Response<Photo>
 }
